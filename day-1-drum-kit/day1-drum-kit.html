@@ -1,0 +1,47 @@
+<html>
+    
+    <head>
+        <title>
+            Javascript 30 Drum Kit app
+        </title>
+        <link rel="stylesheet" href="drum-kit.css">    
+    </head>
+    <body>
+        <div class="keys">
+            <div class="a-key key" data-key="65">A</div>
+            <div class="s-key key" data-key="83">S</div>
+            <div class="d-key key" data-key="68">D</div>
+            <div class="f-key key" data-key="70">F</div>
+            <div class="g-key key" data-key="71">G</div>
+            <div class="h-key key" data-key="72">H</div>
+            <div class="j-key key" data-key="74">J</div>
+            <div class="k-key key" data-key="75">K</div>
+            <div class="l-key key" data-key="76">L</div>
+        </div>
+        
+        <audio data-key="65" src="sounds/boom.wav"></audio>
+        <audio data-key="83" src="sounds/clap.wav"></audio>
+        <audio data-key="68" src="sounds/hihat.wav"></audio>
+        <audio data-key="70" src="sounds/kick.wav"></audio>
+        <audio data-key="71" src="sounds/openhat.wav"></audio>
+        <audio data-key="72" src="sounds/ride.wav"></audio>
+        <audio data-key="74" src="sounds/snare.wav"></audio>
+        <audio data-key="75" src="sounds/tink.wav"></audio>
+        <audio data-key="76" src="sounds/tom.wav"></audio>
+    </body>
+
+    <script>
+        const allKeys = document.getElementsByClassName('key')
+        window.addEventListener('keyup', (e) => {
+            const keyPressed = e.keyCode
+            for (let i = 0; i < allKeys.length; i++) {
+                const keyNumber = Number(allKeys[i].getAttribute('data-key'))
+                // console.log(keyNumber)
+                if(keyPressed === keyNumber) {
+                    console.log('key pressed')
+                }
+            }
+        })
+        
+    </script>
+</html>
