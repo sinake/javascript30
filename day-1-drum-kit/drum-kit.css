@@ -12,5 +12,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    
+    border: 4px solid #000;
+    transition: all .07s;
+}
+
+.playing {
+    transform: scale(1.1);
+    border-color: #ffc600;
+    box-shadow: 0 0 10px #ffc600;
 }

@@ -31,16 +31,29 @@
     </body>
 
     <script>
-        const allKeys = document.getElementsByClassName('key')
-        window.addEventListener('keyup', (e) => {
+        const allKeys = document.querySelectorAll('.key')
+        const allAudioEls = document.getElementsByTagName('audio')
+        
+        function keyPressed(e) {
             const keyPressed = e.keyCode
-            for (let i = 0; i < allKeys.length; i++) {
-                const keyNumber = Number(allKeys[i].getAttribute('data-key'))
-                // console.log(keyNumber)
-                if(keyPressed === keyNumber) {
-                    console.log('key pressed')
-                }
-            }
+            const audio = document.querySelector(`audio[data-key="${keyPressed}"]`)
+            const key = document.querySelector(`div[data-key="${keyPressed}"]`)
+            if(!audio) return
+            audio.currentTime = 0
+            audio.play()
+            key.classList.add('playing')
+        }
+
+        function finishTransition(e)  {
+            if(e.propertyName !== 'transform') return
+            this.classList.remove('playing')
+        }
+
+        window.addEventListener('keyup', keyPressed)
+
+        
+        allKeys.forEach(key => { 
+            key.addEventListener('transitionend', finishTransition)
         })
         
     </script>
