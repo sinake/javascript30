@@ -1,0 +1,40 @@
+body {
+    background-color: blue;
+}
+.clock-container {
+    display: flex;
+    justify-content: center;
+    top: 50%;
+    position: relative;
+}
+
+.clock {
+    width: 150px;
+    height: 150px;
+    border: 10px solid #fff;
+    border-radius: 50%;
+}
+
+.hand {
+    width: 47%;
+    height: 1px;
+    background-color: #000;
+    border-radius: 25%;
+    top: 50%;
+    position: relative;
+    margin-left: 3%;
+    transform: rotate(90deg);
+    transform-origin: 100%;
+}
+
+.hour-hand {
+    width: 40%;
+    margin-left: 10%;
+    height: 3px;
+    transform: rotate(45deg);
+}
+
+.minute-hand {
+    height: 3px;
+    transform: rotate(120deg);
+}
