@@ -1,5 +1,5 @@
 body {
-    background-color: blue;
+    background-color: lightblue;
 }
 .clock-container {
     display: flex;
@@ -16,7 +16,7 @@ body {
 }
 
 .hand {
-    width: 47%;
+    width: 46%;
     height: 1px;
     background-color: #000;
     border-radius: 25%;
@@ -25,16 +25,17 @@ body {
     margin-left: 3%;
     transform: rotate(90deg);
     transform-origin: 100%;
+    transition: all .05s;
+    transition-timing-function: cubic-bezier(0, 0, 0.15, 2.82);
 }
 
 .hour-hand {
     width: 40%;
     margin-left: 10%;
+    top: 53%;
     height: 3px;
-    transform: rotate(45deg);
 }
 
 .minute-hand {
     height: 3px;
-    transform: rotate(120deg);
 }
