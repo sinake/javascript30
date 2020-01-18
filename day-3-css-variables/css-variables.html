@@ -14,10 +14,23 @@
                 <input type="range" name="blur" min="0" max="25" value="10" data-sizing="px" />
 
                 <label for="color">Color</label>
-                <input type="color" name="color" value="#ffc600" />
+                <input type="color" name="base" value="#ffc600" />
             </div>
 
             <img src="https://images.pexels.com/photos/3536526/pexels-photo-3536526.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350&w=640" />
         </main>
     </body>
+    <script>
+        const inputs = document.querySelectorAll('.controls input')
+
+        function handleUpdate () {
+            const suffix = this.dataset.sizing || ''
+            console.log(document.documentElement.style.setProperty(`--${this.name}`, `${this.value}${suffix}`))
+        }
+
+        inputs.forEach((input) => {
+            input.addEventListener('change', handleUpdate)
+            input.addEventListener('mousemove', handleUpdate)
+        })
+    </script>
 </html>
