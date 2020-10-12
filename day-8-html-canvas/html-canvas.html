@@ -1,0 +1,93 @@
+<!-- IN PROGRESS -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 Canvas</title>
+  </head>
+  <body>
+    <p>hello asif</p>
+    <canvas id='draw' width='800' height='800'></canvas>
+    <script>
+      // getting the canvas element
+      const canvas = document.querySelector('#draw')
+      // getting the canvar context (this can be 2d 3d look it up online)
+      const ctx = canvas.getContext('2d')
+      // increasing the width and height to match the window size
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+
+      // the color of the line
+      ctx.strokeStyle = '#BADA55'
+      // where lines meet new lines
+      ctx.lineJoin = 'round'
+      // ends of the drawn line
+      ctx.lineCap = 'round'
+
+      let isDrawing = false
+      let x = 0
+      let y = 0
+      let hue = 0
+      let direction = true
+
+      function draw(e) {
+        if (!isDrawing) {
+          // get out of draw function
+          return
+        }
+        // starts a new path
+        ctx.beginPath()
+        // creates a new sub path, start from
+        ctx.moveTo(x, y)
+        // line ends at
+        ctx.lineTo(e.offsetX, e.offsetY)
+        // draw line
+        ctx.stroke();
+        // line has been drawn now updating x and y coordinates, this is the way to update in es6 for some reason this doesn't work when running it gives an undefined error.
+        [x, y] = [e.offsetX, e.offsetY]
+        // x = e.offsetX
+        // y = e.offsetY
+
+        ctx.strokeStyle = `hsl(${hue}, 75%, 50%)`
+        hue++
+        if (hue >= 360) {
+          hue = 0
+        }
+        
+        if(ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+          direction = !direction
+        }
+
+        if(direction) {
+          ctx.lineWidth++
+        } else {
+          ctx.lineWidth--
+        }
+        
+      }
+      
+
+      // if (ctx.strokeWidth = 100 ||
+
+      // when the mouse moves run draw function
+      window.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        // setting the x and y coordinates on mousedown event
+        [x, y] = [e.offsetX, e.offsetY]
+        // x = e.offsetX
+        // y = e.offsetY
+      })
+      window.addEventListener('mousemove', (e) => draw(e))
+      window.addEventListener('mousedown', () => (isDrawing = true))
+      window.addEventListener('mouseup', () => (isDrawing = false))
+      // window.addEventListener('mouseout', () => isDrawing = false)
+    </script>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+    </style>
+  </body>
+</html>

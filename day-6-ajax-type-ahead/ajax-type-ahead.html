@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Type Ahead 👀</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+    <form class="search-form">
+      <input type="text" class="search" placeholder="City or State">
+      <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+			</ul>
+    </form>
+    <script>
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+    const apiResponse = []
+    fetch(endpoint)
+			.then((initResponse) => initResponse.json())
+      .then((jsonResponse) => apiResponse.push(...jsonResponse))
+      .catch((err) => {throw Error(err)})
+    
+    const searchBox = document.querySelector('.search')
+    const suggestionUl = document.querySelector('.suggestions')   
+
+    function sortResponse(enteredKeyword, dataList) {
+      const regExp = RegExp(enteredKeyword, 'gi')
+      return dataList.filter((place) => place.city.match(regExp) || place.state.match(regExp))
+    }
+
+    searchBox.addEventListener('change', showResponse)
+    searchBox.addEventListener('keyup', showResponse)
+    
+    // the this in here will point to whatever will run this function
+    function showResponse() {
+      const sortedResponse = sortResponse(this.value, apiResponse)
+      let uiResponse
+      // if textbox is empty
+      if (this.value.length === 0) {
+        uiResponse = `
+          <li>Filter for a city</li>
+          <li>or a state</li>`
+      } else {
+        // if api response is empty
+        if (sortedResponse.length === 0) {
+          uiResponse = '<li>Sorry no places found.</li>'
+        } else {
+          // if api responds back with data
+          uiResponse = sortedResponse.map((place) => {
+            const regExp = new RegExp(this.value, 'gi')
+            const cityName = place.city.replace(regExp, `<span class='hl'>${this.value}</span>`)
+            const stateName = place.state.replace(regExp, `<span class='hl'>${this.value}</span>`)
+            const populationCommaSep = place.population.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+             return `
+              <li>
+                <span class='place'>${cityName}, ${stateName}</span>
+                <span class='population'>${populationCommaSep}</span>
+              </li>`
+          }).join('')
+        }
+      }
+      suggestionUl.innerHTML = uiResponse
+    }
+
+    </script>
+    </body>
+</html>
