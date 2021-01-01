@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+  const enteredKeys = []
+  const secret = 'asif'
+
+  document.addEventListener('keyup', (e) => {
+    enteredKeys.push(e.key)
+    
+    enteredKeys.splice(-secret.length -1, enteredKeys.length - secret.length)
+    if (enteredKeys.join('').includes(secret)) {
+      
+      cornify_add()
+      cornify_add_cupcake_button()
+    }
+  })
+</script>
+</body>
+</html>
